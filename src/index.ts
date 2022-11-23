@@ -12,23 +12,27 @@ const time = document.getElementById("timer-time") as HTMLInputElement;
 const result = document.getElementById("result") as HTMLElement;
 
 function setLabelWithAutoReset({
-  element,
+  target,
   text,
   time = 5000,
 }: {
-  element: HTMLElement;
+  target: HTMLElement;
   text: string;
   time?: number;
 }) {
-  element.innerText = text;
+  target.innerText = text;
   setTimeout(() => {
-    element.innerText = "";
+    target.innerText = "";
   }, time);
 }
 
 function handler() {
   console.log(arguments[1].directionY);
   if (arguments[1].directionY !== "TOP") {
+    setLabelWithAutoReset({
+      target: result,
+      text: "時間とラベルを入力して上にスワイプして保存します",
+    });
     return;
   }
 
@@ -37,16 +41,16 @@ function handler() {
 
   if (!label.value || !time.value) {
     setLabelWithAutoReset({
-      element: result,
-      text: "時間とラベルを両方入力してください。",
+      target: result,
+      text: "時間とラベルを入力して上にスワイプして保存します",
     });
     return;
   }
 
   localStorage.setItem("test", JSON.stringify({ label, time }));
   setLabelWithAutoReset({
-    element: result,
-    text: `${time.value}にアラームを設定しました。`,
+    target: result,
+    text: `${time.value}に${label.value}をするアラームを設定しました`,
   });
   label.value = "";
   time.value = "";
