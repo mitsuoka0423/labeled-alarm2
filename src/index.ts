@@ -31,7 +31,7 @@ function handler() {
   if (arguments[1].directionY !== "TOP") {
     setLabelWithAutoReset({
       target: result,
-      text: "時間とラベルを入力して上にスワイプして保存します",
+      text: "上にスワイプして保存します",
     });
     return;
   }
